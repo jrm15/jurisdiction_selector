@@ -8,8 +8,20 @@ Create a React component named JurisdictionSelector that allows users to select 
 sub-jurisdictions using checkboxes. The component should interact with the provided fake API to fetch and
 display the data.
 
-# Running the proyect:
-
+# Developing proyect:
 ```bash
+npm install
+
 npm run dev
+```
+
+# Deploy proyect:
+```bash
+npm install
+
+npm i -g serve
+
+npm run build
+
+serve -s dist
 ```
