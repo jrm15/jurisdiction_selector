@@ -10,4 +10,6 @@ display the data.
 
 # Running the proyect:
 
+```bash
 npm run dev
+```
