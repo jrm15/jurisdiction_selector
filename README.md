@@ -25,3 +25,7 @@ npm run build
 
 serve -s dist
 ```
+
+# CI/CD using Vercel:
+
+Deploy in this [web](https://jurisdiction-selector-five.vercel.app/)
