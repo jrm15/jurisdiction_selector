@@ -1,5 +1,5 @@
 import './App.css'
-import JurisdictionSelector from './JurisdictionSelector.jsx';
+import JurisdictionSelector from './components/JurisdictionSelector/JurisdictionSelector';
 
 const App = () => {
   return (

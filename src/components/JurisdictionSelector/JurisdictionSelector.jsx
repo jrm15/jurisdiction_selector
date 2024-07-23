@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { fetchJurisdictions, fetchSubJurisdictions } from './api';
+import { fetchJurisdictions, fetchSubJurisdictions } from '../../utils/api';
 import './JurisdictionSelector.css';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const JurisdictionSelector = () => {
     // hook useState - Estado para almacenar las jurisdicciones principales (el segundo valor actualiza el estado del primero con el valor que le pases)
@@ -13,8 +13,10 @@ const JurisdictionSelector = () => {
     // hook useState - Estado para almacenar un conjunto de IDs de jurisdicciones seleccionadas (con conjunto)
     const [selectedJurisdictions, setSelectedJurisdictions] = useState(new Set());
 
+    // hook useState - Estado para el uso del componente LoadingSpinner
     const [loading, setLoading] = useState(false)
 
+    // Componente LoadingSpinner
     const Loader = () => (
         <LoadingSpinner />
     )
@@ -103,11 +105,13 @@ const JurisdictionSelector = () => {
 
     // Función recursiva para renderizar jurisdicciones (funcion global)
     const renderJurisdictions = (jurisdictions) => (
-        <ul className='jurisdiction-list'>
+        <ul className={jurisdictions.length === 2 ? 'jurisdiction-list' : 'subjurisdiction-list'}>
             {/* map itera con cada elemento de jurisdictions */}
             {jurisdictions.map((jurisdiction) => (
                 <li key={jurisdiction.id}>
                     <label className={jurisdiction.id === 1 || jurisdiction.id === 2 ? 'jurisdiction-label' : 'subjurisdiction-label'}>
+                        {jurisdiction.id > 200 ? ( <span></span> ) : 
+                        (
                         <input
                             type="checkbox"
                             /* Marca el checkbox si selectedJurisdictions contiene el ID de la jurisdicción */
@@ -115,6 +119,7 @@ const JurisdictionSelector = () => {
                             /* Llama a handleCheckboxChange cuando el estado del checkbox cambia, actualizando el estado y manejando la lógica de selección y expansión */
                             onChange={() => handleCheckboxChange(jurisdiction)}
                         />
+                        )}
                         {jurisdiction.name}
                     </label>
                     {/* Si la jurisdiccion esta expandida y tiene subjurisdicciones */}
@@ -132,7 +137,6 @@ const JurisdictionSelector = () => {
     return (
         <div className='main-jurisdictions'>
             <h1>Jurisdiction Selector</h1>
-            <h2>Main Jurisdictions</h2>
             {loading && <Loader />}
             {/* Llama a renderJurisdictions para mostrar las jurisdicciones principales */}
             {renderJurisdictions(jurisdictions)}
